@@ -7,14 +7,3 @@ export const client = new ApolloClient({
 });
 
 // https://www.apollographql.com/docs/react/get-started/
-export const getClient = client
-  .query({
-    query: gql`
-      query GetRates {
-        rates(currency: "USD") {
-          currency
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
