@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from "react-native";
 import {useQuery} from "@apollo/client";
-import {getClient, GET_ROOMS} from '../queries/getRooms';
+import {getClient, GET_ROOMS} from '../queries/GetRooms';
 
 const RoomsList = () => {
     const {data, loading } = useQuery(getClient);
