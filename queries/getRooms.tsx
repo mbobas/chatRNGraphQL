@@ -12,16 +12,16 @@ const GET_ROOMS = gql`
   }
 `;
 
-export  const GetRooms = () => {
+export const GetRooms = () => {
   const { loading, error, data } = useQuery(GET_ROOMS);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :( GetRooms</Text>;
-
-  return data.usersRooms.map(({ rooms }) => (
-    <View key={rooms.name}>
+  console.log(data.usersRooms.rooms);
+  return data.usersRooms.rooms.map(({ id, name }) => (
+    <View key={id}>
       <Text>
-        {rooms}: {rooms.name}
+        {id}: {name}
       </Text>
     </View>
   ));
