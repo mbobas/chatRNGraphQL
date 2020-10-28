@@ -4,32 +4,38 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../Colors';
 
+//room (id: "fecdc462-781e-487c-b96e-7f079b92e04b"){
+
+export const GetMessages = ({ roomID, navigation }) => {
+
 const GET_MESSAGES = gql`
-query roomMessages {
-  room (id: "fecdc462-781e-487c-b96e-7f079b92e04b"){
-    id
-		messages {
-		  id
-      body
-      insertedAt
+  query roomMessages {
+    room (id: $roomID){
+      id
+      messages {
+        id
+        body
+        insertedAt
+        user {
+          id
+          lastName
+          firstName
+          email
+        }
+      }
+      name 
       user {
         id
-        lastName
-        firstName
-        email
       }
-		}
-		name 
-		user {
-		  id
-		}
-    
+      
+    }
   }
-}
 `;
+  console.log("roomID" + roomID);
 
-export const GetMessages = ({ navigation }) => {
-  const { loading, error, data } = useQuery(GET_MESSAGES);
+  const { loading, error, data } = useQuery(GET_MESSAGES, {
+    variables: { roomID },
+  });
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :( GetMessages</Text>;
@@ -46,7 +52,6 @@ export const GetMessages = ({ navigation }) => {
     </View>
   ));
 }
-
 
 const styles = StyleSheet.create({
   container: {

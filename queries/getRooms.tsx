@@ -8,7 +8,15 @@ const GET_ROOMS = gql`
   query getRooms {
     usersRooms {
       rooms {
+        id
         name
+      }
+      user {
+        id
+        firstName
+        lastName
+        role
+        
       }
     }
   }
@@ -19,11 +27,25 @@ export const GetRooms = ({ navigation }) => {
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :( GetRooms</Text>;
-  console.log(data.usersRooms.rooms);
+
+  // console.log(data.usersRooms.rooms);
+  // console.log(data.usersRooms.user);
+  // console.log("imie usera" + data.usersRooms.user.firstName)
+  // const userRoomName = () => {
+  //   data.usersRooms.user.map(({ firstName }) => {
+  //     console.log("Imie" + firstName);
+  //   }
+  // }
+  // // do naprawy CreatedBy
+
   return data.usersRooms.rooms.map(({ id, name }) => (
-    <View key={name}>
+    <View key={id}>
          <TouchableOpacity style={styles.roomButton}
-            onPress={()=> navigation.navigate('Chat')}
+            onPress={()=> navigation.navigate('Chat', {
+              roomID: id,
+              roomName: name,
+              //roomUserName: userRoomName //nie działa do naprawy CreatedBy
+            })}
          >
          <Text style={styles.roomButtonText}>{name}</Text>
          </TouchableOpacity>

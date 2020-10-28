@@ -5,13 +5,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GetMessages } from '../queries/GetMessages';
 import { Colors } from '../Colors';
 
-export default function Chat({ navigation }) {
+export default function Chat({ route, navigation }) {
+    const { roomID, roomName, roomUserName } = route.params;
+
     return (
         <View style={styles.container}>
-        <TouchableOpacity style={styles.roomButton}
-          onPress={() => navigation.navigate('Details')}
-        />
-        <GetMessages navigation={navigation}/>
+            <Text>{roomName}</Text>
+            <Text>Created by{roomUserName}</Text>
+        <GetMessages roomID={roomID} navigation={navigation}/>
       </View>
     );
   }
