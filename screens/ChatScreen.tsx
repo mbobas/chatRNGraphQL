@@ -6,12 +6,12 @@ import { GetMessages } from '../queries/GetMessages';
 import { Colors } from '../Colors';
 
 export default function Chat({ route, navigation }) {
-    const { roomID, roomName, roomUserName } = route.params;
+    const { roomID, roomName } = route.params;
 
     return (
         <View style={styles.container}>
             <Text>{roomName}</Text>
-            <Text>Created by{roomUserName}</Text>
+            <Text>Created by{}</Text>
         <GetMessages roomID={roomID} navigation={navigation}/>
       </View>
     );

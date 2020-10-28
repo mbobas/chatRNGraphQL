@@ -5,11 +5,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../Colors';
 
 //room (id: "fecdc462-781e-487c-b96e-7f079b92e04b"){
+// room (id: $roomID){
+
+ 
+
 
 export const GetMessages = ({ roomID, navigation }) => {
 
-const GET_MESSAGES = gql`
-  query roomMessages {
+  const GET_MESSAGES = gql`
+  query roomMessages($roomID: String!) {
     room (id: $roomID){
       id
       messages {
@@ -31,14 +35,16 @@ const GET_MESSAGES = gql`
     }
   }
 `;
+
   console.log("roomID" + roomID);
 
   const { loading, error, data } = useQuery(GET_MESSAGES, {
     variables: { roomID },
+    pollInterval: 500,
   });
 
   if (loading) return <Text>Loading...</Text>;
-  if (error) return <Text>Error :( GetMessages</Text>;
+  if (error) return <Text>Error :( GetMessages {error}</Text>;
 
   console.log(data.room.messages.body);
 

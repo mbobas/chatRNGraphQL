@@ -22,6 +22,7 @@ const GET_ROOMS = gql`
   }
 `;
 
+
 export const GetRooms = ({ navigation }) => {
   const { loading, error, data } = useQuery(GET_ROOMS);
 
