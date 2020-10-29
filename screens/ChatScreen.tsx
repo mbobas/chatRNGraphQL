@@ -7,12 +7,7 @@ import { Colors } from '../Colors';
 import { SendMessage } from '../mutations/SendMessage';
 
 export default function Chat({ route, navigation }) {
-    
     const { roomID, roomName } = route.params;
-
-    // const resetInputvalue = (value: any) => {
-    //   value=""
-    // }
     
     return (
       <View style={styles.container}>
@@ -21,9 +16,7 @@ export default function Chat({ route, navigation }) {
             <Text>Created by{}</Text>
         </View>
         <GetMessages roomID={roomID} navigation={navigation}/>
-        
         <SendMessage roomID={roomID} navigation={navigation}/>
-      
       </View>
     );
   }
@@ -31,8 +24,6 @@ export default function Chat({ route, navigation }) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      // backgroundColor: '#fff',
-      // alignItems: 'center',
       justifyContent: 'space-between',
     },
     headerChat: {

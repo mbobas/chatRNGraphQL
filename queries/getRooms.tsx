@@ -22,22 +22,11 @@ const GET_ROOMS = gql`
   }
 `;
 
-
 export const GetRooms = ({ navigation }) => {
   const { loading, error, data } = useQuery(GET_ROOMS);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :( GetRooms</Text>;
-
-  // console.log(data.usersRooms.rooms);
-  // console.log(data.usersRooms.user);
-  // console.log("imie usera" + data.usersRooms.user.firstName)
-  // const userRoomName = () => {
-  //   data.usersRooms.user.map(({ firstName }) => {
-  //     console.log("Imie" + firstName);
-  //   }
-  // }
-  // // do naprawy CreatedBy
 
   return data.usersRooms.rooms.map(({ id, name }) => (
     <View key={id}>
@@ -53,7 +42,6 @@ export const GetRooms = ({ navigation }) => {
     </View>
   ));
 }
-
 
 const styles = StyleSheet.create({
   container: {

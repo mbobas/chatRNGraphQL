@@ -1,5 +1,5 @@
 import { useQuery, gql, useMutation } from '@apollo/client';
-import {View, Text, ScrollView, Button, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {View, Text, ScrollView, Button, StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../Colors';

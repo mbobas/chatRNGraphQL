@@ -10,7 +10,7 @@ import {client} from './auth/authHttpPhoenix';
 import { ExchangeRates } from './queries/ExchangeRates';
 import { GetRooms } from './queries/GetRooms';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import HomeScreen from './screens/HomeScreen';
+import RoomList from './screens/RoomList';
 import Chat from './screens/ChatScreen';
 
 const Stack = createStackNavigator();
@@ -19,8 +19,8 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer >
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Chatly rooms' }}/>
+        <Stack.Navigator initialRouteName="RoomList">
+          <Stack.Screen name="RoomList" component={RoomList} options={{ title: 'Chatly rooms' }}/>
           <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>
       </NavigationContainer>
