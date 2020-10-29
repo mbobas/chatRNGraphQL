@@ -1,11 +1,9 @@
 import 'react-native-gesture-handler';
-import React, { useState}  from 'react';
-import { Button, StyleSheet, View, Text } from 'react-native';
-import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import { GetMessages } from '../queries/GetMessages';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { Messages } from '../components/Messages';
 import { Colors } from '../Colors';
-import { SendMessage } from '../mutations/SendMessage';
-import {  } from 'native-base';
+import { SendMessage } from '../components/SendMessage';
 
 export default function Chat({ route, navigation }) {
     const { roomID, roomName } = route.params;
@@ -14,7 +12,7 @@ export default function Chat({ route, navigation }) {
       <View style={styles.container}>
         <Text style={styles.titleOfRoom}>{roomName}</Text>
         <Text style={styles.autorOf}>Created by Michal Gulczynski</Text>
-        <GetMessages roomID={roomID} navigation={navigation}/>
+        <Messages roomID={roomID} navigation={navigation}/>
         <SendMessage roomID={roomID} navigation={navigation}/>
       </View>
     );

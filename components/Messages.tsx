@@ -1,9 +1,8 @@
 import { useQuery, gql } from '@apollo/client';
 import {View, Text, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../Colors';
-import { Item } from 'native-base';
 
 const GET_MESSAGES = gql`
   query roomMessages($roomID: String!) {
@@ -29,7 +28,7 @@ const GET_MESSAGES = gql`
   }
 `;
 
-export const GetMessages = ({ roomID, navigation }) => {
+export const Messages = ({ roomID, navigation }) => {
   const { loading, error, data } = useQuery(GET_MESSAGES, {
     variables: { roomID },
     pollInterval: 500,

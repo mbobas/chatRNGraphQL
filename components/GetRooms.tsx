@@ -1,23 +1,9 @@
 import { useQuery, gql } from '@apollo/client';
-import {View, Text, ScrollView, Button, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const RoomIcon = () => (
-    <View style={styles.roomIcon}>
-    <Icon name="arrow-circle-right" size={20} color="#42f5b6" />
-    </View>
-    );
-
-const customTextButton = () => (
-  <Icon.Button name="facebook" backgroundColor="transparent">
-    <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>
-      Login with Facebook
-    </Text>
-  </Icon.Button>
-);
 
 const GET_ROOMS = gql`
   query getRooms {
@@ -36,6 +22,12 @@ const GET_ROOMS = gql`
     }
   }
 `;
+
+const RoomIcon = () => (
+  <View style={styles.roomIcon}>
+  <Icon name="arrow-circle-right" size={20} color="#42f5b6" />
+  </View>
+  );
 
 export const GetRooms = ({ navigation }) => {
   const { loading, error, data } = useQuery(GET_ROOMS);
