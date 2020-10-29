@@ -1,16 +1,10 @@
-import { useQuery, gql, useMutation } from '@apollo/client';
-import {View, Text, ScrollView, Button, StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
+import { gql, useMutation } from '@apollo/client';
+import {Text,  StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../Colors';
 
-//room (id: "fecdc462-781e-487c-b96e-7f079b92e04b"){
-// room (id: $roomID){
-
-export const SendMessage = ({ roomID, navigation }) => {
-  const [body, onChangeText] = useState('Say something');
-
-  const SEND_MESSAGE = gql`
+const SEND_MESSAGE = gql`
   mutation sMess ($roomID: String!, $body: String!){
     sendMessage(body: $body, roomId: $roomID) {
       body
@@ -26,42 +20,53 @@ export const SendMessage = ({ roomID, navigation }) => {
   }
 `;
 
-  console.log("roomID+body" + roomID + "  " + body);
-
+export const SendMessage = ({ roomID, navigation }) => {
+  const [body, onChangeBody] = useState('');
   const [addTodo, { data }] = useMutation(SEND_MESSAGE);
  
-
   return (
-    <KeyboardAvoidingView  behavior={Platform.OS == "ios" ? "padding" : "height"}
-    style={styles.container}>
-      <View>
-        <TextInput
-            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-            onChangeText={text => onChangeText(text)}
+    <KeyboardAvoidingView  
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      style={styles.container}>
+        <TextInput style={styles.textInput}
+            placeholder="Type a message.."
+            onChangeText={text => onChangeBody(text)}
             value={body}
         />
-        <Button 
-        title="SendMessage"
+        <TouchableOpacity
+        style={styles.sendButton} 
         onPress={() => {
           addTodo({ variables: {roomID, body }}) 
-          onChangeText("")
-        }}
-      />  
-      </View>
+          onChangeBody("")
+        }}>
+        <Text style={styles.sendButtonText}>Send</Text>
+        </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: "row",
+    paddingTop: 10,
   },
-  roomButton: {
+  sendButton: {
+    marginRight: 5,
     backgroundColor: Colors.WHITE,
     padding: 15,
-  
+    borderColor: Colors.LIGHT_GREY, 
+    borderTopWidth: 1
   },
   roomButtonText: {
+    fontWeight: "bold",
+  },
+  textInput: {
+    marginLeft: 5,
+    flex: 6, 
+    borderColor: Colors.LIGHT_GREY, 
+    borderTopWidth: 1
+  },
+  sendButtonText: {
     fontWeight: "bold",
   }
 });

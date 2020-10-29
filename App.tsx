@@ -12,6 +12,7 @@ import { GetRooms } from './queries/GetRooms';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import RoomList from './screens/RoomList';
 import Chat from './screens/ChatScreen';
+import GChat from './screens/GiftedChat';
 
 const Stack = createStackNavigator();
 
@@ -20,7 +21,7 @@ export default function App() {
     <ApolloProvider client={client}>
       <NavigationContainer >
         <Stack.Navigator initialRouteName="RoomList">
-          <Stack.Screen name="RoomList" component={RoomList} options={{ title: 'Chatly rooms' }}/>
+          <Stack.Screen name="RoomList" component={RoomList} options={{ title: 'Chatly rooms'}}/>
           <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>
       </NavigationContainer>
@@ -30,6 +31,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+
     // flex: 1,
     // backgroundColor: '#fff',
     // alignItems: 'center',
