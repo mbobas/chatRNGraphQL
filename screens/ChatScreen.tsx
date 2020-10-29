@@ -7,7 +7,7 @@ import { Colors } from '../Colors';
 import { SendMessage } from '../mutations/SendMessage';
 
 export default function Chat({ route, navigation }) {
-    const [value, onChangeText] = useState('Say something');
+    
     const { roomID, roomName } = route.params;
 
     // const resetInputvalue = (value: any) => {
@@ -15,21 +15,28 @@ export default function Chat({ route, navigation }) {
     // }
     
     return (
-        <ScrollView style={styles.container}>
-            <Text>{roomName}</Text>
+      <View style={styles.container}>
+        <View style={styles.headerChat}>
+        <Text>{roomName}</Text>
             <Text>Created by{}</Text>
+        </View>
         <GetMessages roomID={roomID} navigation={navigation}/>
-        <SendMessage onChangeText={onChangeText} roomID={roomID} body={value} navigation={navigation}/>
-      </ScrollView>
+        
+        <SendMessage roomID={roomID} navigation={navigation}/>
+      
+      </View>
     );
   }
 
   const styles = StyleSheet.create({
     container: {
-      // flex: 1,
+      flex: 1,
       // backgroundColor: '#fff',
       // alignItems: 'center',
-      // justifyContent: 'center',
+      justifyContent: 'space-between',
+    },
+    headerChat: {
+      flex:1,
     },
     roomButton: {
         backgroundColor: Colors.WHITE,

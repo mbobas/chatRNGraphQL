@@ -1,18 +1,10 @@
 import { useQuery, gql } from '@apollo/client';
-import {View, Text, ScrollView, Button, StyleSheet} from 'react-native';
+import {View, Text, ScrollView, Button, StyleSheet, StatusBar} from 'react-native';
 import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../Colors';
 
-//room (id: "fecdc462-781e-487c-b96e-7f079b92e04b"){
-// room (id: $roomID){
-
- 
-
-
-export const GetMessages = ({ roomID, navigation }) => {
-
-  const GET_MESSAGES = gql`
+const GET_MESSAGES = gql`
   query roomMessages($roomID: String!) {
     room (id: $roomID){
       id
@@ -36,8 +28,15 @@ export const GetMessages = ({ roomID, navigation }) => {
   }
 `;
 
-  console.log("roomID" + roomID);
+const renderMessege = ({ item }) => (
+    <View key={item.id}>
+        <TouchableOpacity style={styles.roomButton}>
+          <Text style={styles.roomButtonText}>{item.body}</Text>
+         </TouchableOpacity>
+    </View>
+);
 
+export const GetMessages = ({ roomID, navigation }) => {
   const { loading, error, data } = useQuery(GET_MESSAGES, {
     variables: { roomID },
     pollInterval: 500,
@@ -46,25 +45,21 @@ export const GetMessages = ({ roomID, navigation }) => {
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :( GetMessages {error}</Text>;
 
-  console.log(data.room.messages.body);
-
-  return data.room.messages.map(({ body, id }) => (
-    <View key={id}>
-         <TouchableOpacity style={styles.roomButton}
-            onPress={()=> navigation.navigate('Home')}
-         >
-         <Text style={styles.roomButtonText}>{body}</Text>
-         </TouchableOpacity>
-    </View>
-  ));
+    return (
+      <View style={styles.container}>
+          <FlatList
+        data={data.room.messages}
+        renderItem={renderMessege}
+        keyExtractor={item => item.id}
+      />
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    flex: 6,
+    //marginTop: StatusBar.currentHeight || 0,
   },
   roomButton: {
     backgroundColor: Colors.WHITE,
@@ -73,7 +68,16 @@ const styles = StyleSheet.create({
   },
   roomButtonText: {
     fontWeight: "bold",
-  }
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
 });
 
 
