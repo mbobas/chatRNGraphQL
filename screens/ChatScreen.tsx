@@ -1,19 +1,22 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { GetMessages } from '../queries/GetMessages';
 import { Colors } from '../Colors';
+import { SendMessage } from '../mutations/SendMessage';
 
 export default function Chat({ route, navigation }) {
     const { roomID, roomName } = route.params;
-
+    const body = "TEST3"
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Text>{roomName}</Text>
             <Text>Created by{}</Text>
         <GetMessages roomID={roomID} navigation={navigation}/>
-      </View>
+        
+        <SendMessage roomID={roomID} body={body} navigation={navigation}/>
+      </ScrollView>
     );
   }
 

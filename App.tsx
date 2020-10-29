@@ -6,7 +6,7 @@ import { ApolloProvider } from '@apollo/client';
 import * as React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 //import { client } from './auth/authQueryApollo';
-import {client} from './auth/authWithHeader';
+import {client} from './auth/authHttpPhoenix';
 import { ExchangeRates } from './queries/ExchangeRates';
 import { GetRooms } from './queries/GetRooms';
 import { TouchableOpacity } from 'react-native-gesture-handler';
