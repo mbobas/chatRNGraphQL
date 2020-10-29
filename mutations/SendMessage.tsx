@@ -1,7 +1,7 @@
 import { useQuery, gql, useMutation } from '@apollo/client';
 import {View, Text, ScrollView, Button, StyleSheet} from 'react-native';
-import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../Colors';
 
 //room (id: "fecdc462-781e-487c-b96e-7f079b92e04b"){
@@ -10,7 +10,8 @@ import { Colors } from '../Colors';
  
 
 
-export const SendMessage = ({ body, roomID, navigation }) => {
+export const SendMessage = ({ roomID, navigation }) => {
+  const [body, onChangeText] = useState('Say something');
 
   const SEND_MESSAGE = gql`
   mutation sMess ($roomID: String!, $body: String!){
@@ -31,12 +32,21 @@ export const SendMessage = ({ body, roomID, navigation }) => {
   console.log("roomID+body" + roomID + "  " + body);
 
   const [addTodo, { data }] = useMutation(SEND_MESSAGE);
+ 
 
   return (
     <View>
+      <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={text => onChangeText(text)}
+          value={body}
+      />
       <Button 
       title="SendMessage"
-      onPress={() => addTodo({ variables: {roomID, body }})}
+      onPress={() => {
+        addTodo({ variables: {roomID, body }}) 
+        onChangeText("")
+      }}
     />  
     </View>
   );
